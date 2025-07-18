@@ -48,6 +48,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 <img width="1600" height="782" alt="image" src="https://github.com/user-attachments/assets/6c99008d-7fdb-49c5-ab41-52209654d76b" />
 
 **youtube demo link:**
+https://youtu.be/pvH49V3-fUA?si=jDvrtsR9z3-hV0FA
 
 
 
