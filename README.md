@@ -8,6 +8,9 @@ Aquatic biodiversity is under-researched in many regions, especially among fresh
 
 💬 Providing knowledge-based answers about fish via a Wikipedia-integrated chatbot.
 
+**Dataset**
+link:https://www.kaggle.com/datasets/markdaniellampa/fish-dataset
+
 
 | Layer        | Tools & Libraries                                    |
 | ------------ | ---------------------------------------------------- |
