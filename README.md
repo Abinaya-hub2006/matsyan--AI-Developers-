@@ -49,6 +49,10 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 **youtube demo link:**
 https://youtu.be/pvH49V3-fUA?si=jDvrtsR9z3-hV0FA
 
+**Deployment link:**
+https://huggingface.co/spaces/abinaya2006/Fish_recoginition
+(basic gradio interface)
+
 
 
 **Team details:**
