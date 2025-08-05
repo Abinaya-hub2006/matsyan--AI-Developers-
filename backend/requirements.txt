@@ -1,0 +1,10 @@
+flask
+gradio
+torch
+torchvision
+numpy
+scikit-learn
+opencv-python
+joblib
+langchain
+wikipedia
