@@ -2,88 +2,162 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🐟 Fish Classifier + Chatbot</title>
+  <title>🐟 Fish Classifier & Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; padding: 20px; background: #f5f5f5; }
-    .container { background: white; padding: 20px; border-radius: 12px; max-width: 600px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    h1 { text-align: center; color: #0077cc; }
-    .chatbox, .uploadbox { margin-top: 20px; }
-    .error { color: red; }
-    .bot, .user { margin: 5px 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f0f6fc;
+      color: #1b1f23;
+    }
+
+    header {
+      background-color: #0366d6;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      color: #0366d6;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #0366d6;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #024ea2;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #0366d6;
+    }
+
+    .chat-container {
+      margin-top: 30px;
+    }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .chat-box {
+      background: #f1f8ff;
+      border-radius: 8px;
+      padding: 15px;
+      min-height: 150px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #666;
+    }
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🐟 Fish Classifier + Chatbot</h1>
 
-    <div class="uploadbox">
-      <h3>1️⃣ Upload Fish Image</h3>
-      <input type="file" id="imageInput" />
-      <button onclick="predictFish()">Predict Fish</button>
-      <p id="result"></p>
-      <p class="error" id="uploadError"></p>
-    </div>
+<header>🐟 Fish Classifier & Chatbot</header>
 
-    <div class="chatbox">
-      <h3>2️⃣ Ask About the Fish</h3>
-      <div id="chatWindow" style="border:1px solid #ccc; padding:10px; height:150px; overflow:auto;"></div>
-      <input type="text" id="chatInput" placeholder="Ask something about the fish..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
+<div class="container">
+  <h2>🔹 1. Upload a Fish Image</h2>
+  <input type="file" id="imageInput" accept="image/*">
+  <button onclick="predictFish()">Predict Fish</button>
+  <div id="result"></div>
+
+  <h2>🔹 2. Ask About the Fish</h2>
+  <div class="chat-container">
+    <div class="chat-box" id="chatBox">Ask about a fish species like <b>"Tilapia"</b>.</div>
+    <input type="text" id="chatInput" placeholder="Type your question here...">
+    <button onclick="askBot()">Ask</button>
   </div>
+</div>
 
-  <script>
-    async function predictFish() {
-      const fileInput = document.getElementById("imageInput");
-      const result = document.getElementById("result");
-      const error = document.getElementById("uploadError");
-      result.innerText = "";
-      error.innerText = "";
+<div class="footer">Made with ❤️ using Flask, PyTorch & Langchain</div>
 
-      if (!fileInput.files[0]) {
-        error.innerText = "❌ Please choose an image.";
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("image", fileInput.files[0]);
-
-      try {
-        const response = await fetch("/upload", { method: "POST", body: formData });
-        const data = await response.json();
-
-        if (data.error) {
-          error.innerText = "❌ " + data.error;
-        } else {
-          result.innerText = "✅ Fish Category: " + data.fish_category;
-        }
-      } catch (err) {
-        error.innerText = "❌ Error uploading image.";
-      }
+<script>
+  function predictFish() {
+    const input = document.getElementById("imageInput").files[0];
+    if (!input) {
+      alert("Please select an image first.");
+      return;
     }
 
-    async function sendMessage() {
-      const input = document.getElementById("chatInput");
-      const chat = document.getElementById("chatWindow");
-      const msg = input.value.trim();
-      if (!msg) return;
+    const formData = new FormData();
+    formData.append("image", input);
 
-      chat.innerHTML += `<div class="user"><strong>You:</strong> ${msg}</div>`;
-      input.value = "";
-
-      try {
-        const response = await fetch("/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: msg }),
-        });
-        const data = await response.json();
-        chat.innerHTML += `<div class="bot"><strong>Bot:</strong> ${data.response}</div>`;
-        chat.scrollTop = chat.scrollHeight;
-      } catch (err) {
-        chat.innerHTML += `<div class="bot error">❌ Error contacting bot.</div>`;
+    fetch("/upload", {
+      method: "POST",
+      body: formData,
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.fish_category) {
+        document.getElementById("result").innerText = `✅ Predicted: ${data.fish_category}`;
+      } else {
+        document.getElementById("result").innerText = `❌ Error: ${data.error}`;
       }
-    }
-  </script>
+    });
+  }
+
+  function askBot() {
+    const userMessage = document.getElementById("chatInput").value;
+    if (!userMessage.trim()) return;
+
+    const chatBox = document.getElementById("chatBox");
+    chatBox.innerHTML += `\n\n🧑 You: ${userMessage}`;
+
+    fetch("/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: userMessage }),
+    })
+    .then(res => res.json())
+    .then(data => {
+      chatBox.innerHTML += `\n🤖 Bot: ${data.response || 'Error fetching response'}`;
+      document.getElementById("chatInput").value = "";
+    });
+  }
+</script>
+
 </body>
 </html>
