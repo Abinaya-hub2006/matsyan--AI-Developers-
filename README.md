@@ -24,8 +24,6 @@ link:https://www.kaggle.com/datasets/markdaniellampa/fish-dataset
 ⚠️ You must have Python 3.8+ installed.
 
 🔧 1. Clone the Repository
-git clone https://huggingface.co/spaces/abhinaya2006/Fish_recognition
-cd Fish_recognition
 
 🐍 2. Create Virtual Environment
 python -m venv venv
