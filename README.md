@@ -15,7 +15,7 @@ link:https://www.kaggle.com/datasets/markdaniellampa/fish-dataset
 | Layer        | Tools & Libraries                                    |
 | ------------ | ---------------------------------------------------- |
 | 💻 Frontend  | html,css (image upload, chat interface)             |
-| 🧠 Backend   | Flask (for legacy), Gradio for Spaces deployment     |
+| 🧠 Backend   | Flask (for legacy)                                   |
 | 🐟 ML Model  | ResNet18 (feature extraction) + SVM (classification) |
 | 🤖 Chatbot   | LangChain + WikipediaAPIWrapper                      |
 | 🔢 Language  | Python (3.8+)                                        |
