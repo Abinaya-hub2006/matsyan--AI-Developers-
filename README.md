@@ -34,8 +34,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 🧠 Uses ResNet18 for deep feature extraction.
 📊 Classifies with SVM for faster inference.
 🤖 Built-in chatbot powered by Wikipedia + LangChain.
-🧪 Fully functional offline & online (Gradio and Flask versions).
-💻 No Docker needed (Gradio auto-deployment to HF Spaces).
+
 
 
 **📝 Future Improvements**
