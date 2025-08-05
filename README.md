@@ -18,7 +18,6 @@ link:https://www.kaggle.com/datasets/markdaniellampa/fish-dataset
 | 🧠 Backend   | Flask (for legacy), Gradio for Spaces deployment     |
 | 🐟 ML Model  | ResNet18 (feature extraction) + SVM (classification) |
 | 🤖 Chatbot   | LangChain + WikipediaAPIWrapper                      |
-| ☁ Deployment | Hugging Face Spaces                                  |
 | 🔢 Language  | Python (3.8+)                                        |
 
 ** Installation & Setup Instructions**
